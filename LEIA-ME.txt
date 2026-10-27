@@ -1,0 +1,17 @@
+ENGLISH QUEST - projeto Android (WebView)
+
+CAMINHO A - Android Studio (no computador)
+1. Instale o Android Studio (gratuito).
+2. File > Open > escolha esta pasta "EnglishQuest". Aguarde o Gradle sincronizar.
+3. Menu Build > Build App Bundle(s) / APK(s) > Build APK(s).
+4. Clique em "locate": o arquivo é app-debug.apk. Envie ao celular e instale
+   (permita "instalar apps desconhecidos" quando o Android pedir).
+
+CAMINHO B - Sem instalar nada (GitHub)
+1. Crie conta gratuita em github.com e um repositório novo.
+2. Envie TODO o conteúdo desta pasta (inclusive a pasta oculta .github).
+3. Aba "Actions" > "Build APK" > Run workflow. Ao terminar, baixe
+   "EnglishQuest-apk" em Artifacts (dentro vem o app-debug.apk).
+
+O jogo fica em app/src/main/assets/index.html. A voz em inglês usa o
+Text-to-Speech do próprio Android.
