@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#1b1464">
+<title>English Quest - My Neighborhood (Android)</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0830;--yel:#ffc83d;--pink:#ff4fa3;--cy:#22d3ee;--gr:#22c55e;--rd:#ef4444}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{min-height:100vh;font-family:'Fredoka','Trebuchet MS',system-ui,sans-serif;color:#fff;background:radial-gradient(circle at 15% 0,#3b2aa0,#1b1464 45%,#0b0830);overflow-x:hidden;touch-action:manipulation}
+h1,h2,.k{font-family:'Baloo 2','Fredoka',sans-serif;font-weight:800}
+.bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.bg i{position:absolute;bottom:-60px;font-style:normal;opacity:.13;animation:fl linear infinite}
+@keyframes fl{to{transform:translateY(-120vh) rotate(360deg)}}
+.scr{display:none;position:relative;z-index:1;max-width:var(--w);margin:0 auto;padding:70px 16px 36px;min-height:100vh}
+.scr.on{display:block}
+#home.on{animation:pop .6s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{opacity:0;transform:scale(.85)}}
+.logo{text-align:center;margin:10px 0 24px}
+.logo .big{font-size:clamp(2.6rem,9vw,4.6rem);line-height:1;color:var(--yel);text-shadow:0 5px 0 #b45309,0 10px 24px rgba(0,0,0,.5);transform:rotate(-2deg)}
+.logo p{margin-top:14px;font-size:1.1rem;opacity:.85}
+.btn{font:inherit;font-weight:600;color:#fff;border:0;border-radius:18px;padding:14px 20px;font-size:1.15rem;cursor:pointer;background:var(--c,#7c5cff);box-shadow:0 6px 0 rgba(0,0,0,.38);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 rgba(0,0,0,.38)}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btn[disabled]{opacity:.4}
+.y{--c:#ffc83d;color:#2b1b00}.g{--c:#16a34a}.p{--c:#ff4fa3}.c{--c:#0891b2}.r{--c:#ef4444}.v{--c:#7c5cff}
+.menu{display:grid;gap:16px;grid-template-columns:var(--cols)}
+.menu .btn{font-size:1.4rem;padding:22px}
+.menu .btn small{display:block;font-weight:400;font-size:.9rem;opacity:.85;margin-top:4px}
+.back{position:absolute;top:14px;left:14px;font-size:1rem;padding:8px 14px}
+h2{font-size:1.9rem;color:var(--yel);margin-bottom:14px}
+.card{background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.18);border-radius:20px;padding:14px}
+.g2{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.it{text-align:center}.it .em{font-size:2.4rem}.it b{display:block;font-size:1.1rem}.it small{opacity:.8}
+.stack{display:grid;gap:10px}
+.k{color:var(--cy);font-size:1.3rem}
+.note{background:rgba(255,200,61,.15);border:2px dashed var(--yel);border-radius:16px;padding:12px;margin-top:14px}
+.dots{display:flex;gap:8px;justify-content:center;align-items:center}
+.dots i{width:12px;height:12px;border-radius:50%;background:#ffffff44}.dots i.on{background:var(--yel);transform:scale(1.3)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.lv{display:grid;gap:16px;grid-template-columns:var(--cols)}
+.lv .btn{font-size:1.5rem;padding:24px}
+.lv .btn span{display:block;font-size:2.4rem}
+.hud{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:600;margin-bottom:10px;flex-wrap:wrap}
+.pill{background:rgba(0,0,0,.35);border-radius:30px;padding:6px 14px}
+.tb{height:16px;background:rgba(0,0,0,.4);border-radius:10px;overflow:hidden;margin-bottom:16px}
+#tf{height:100%;width:100%;background:linear-gradient(90deg,#22c55e,#ffc83d);border-radius:10px;transition:width .1s linear}
+#tf.low{background:linear-gradient(90deg,#ef4444,#ff8a3d)}
+.qc{min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.5rem;font-weight:600;padding:20px;margin-bottom:16px;background:rgba(255,255,255,.12);border:3px solid var(--yel);border-radius:22px;box-shadow:0 8px 0 rgba(0,0,0,.3)}
+.opts{display:grid;gap:12px}
+.opt{font:inherit;font-size:1.1rem;font-weight:500;color:#fff;text-align:left;display:flex;gap:12px;align-items:center;border:0;border-radius:16px;padding:14px;cursor:pointer;background:#3730a3;box-shadow:0 5px 0 rgba(0,0,0,.4)}
+.opt b{background:var(--yel);color:#2b1b00;border-radius:10px;min-width:32px;height:32px;display:grid;place-items:center}
+.opt:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.4)}
+.opt.ok{background:var(--gr);animation:jump .5s}.opt.no{background:var(--rd);animation:sh .4s}
+@keyframes jump{50%{transform:scale(1.05)}}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.act{display:flex;gap:12px;margin-top:20px;justify-content:space-between}
+#aud{position:fixed;top:10px;right:10px;z-index:10;display:flex;gap:6px;align-items:center;background:rgba(0,0,0,.5);padding:4px 12px;border-radius:30px}
+#aud button{background:none;border:0;font-size:1.4rem;cursor:pointer}
+#aud input{width:90px;accent-color:var(--yel)}
+.end{text-align:center}.stars{font-size:3.4rem;margin:10px 0}
+.score{font-family:'Baloo 2';font-size:3.4rem;color:var(--yel)}
+.fc{height:230px;display:grid;place-items:center;text-align:center;font-size:2rem;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#7c5cff,#ff4fa3);border-radius:26px;box-shadow:0 8px 0 rgba(0,0,0,.35);padding:16px;user-select:none}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mc{font:inherit;font-weight:600;font-size:.95rem;color:#fff;min-height:84px;border:0;border-radius:16px;background:#7c5cff;box-shadow:0 5px 0 rgba(0,0,0,.4);cursor:pointer;padding:6px}
+.mc.up{background:var(--cy);color:#06222b}.mc.done{background:var(--gr);color:#fff}
+.sp{font-size:1rem;width:34px;height:34px;border:0;border-radius:50%;background:var(--yel);cursor:pointer;vertical-align:middle;box-shadow:0 3px 0 rgba(0,0,0,.35);margin-left:4px}.sp:active{transform:translateY(3px);box-shadow:none}.sp.on{background:var(--cy)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+:root{--w:560px;--cols:1fr}.opts,.lv{grid-template-columns:1fr}.scr{padding:64px 12px calc(30px + env(safe-area-inset-bottom))}.opt{padding:16px 14px;font-size:1.15rem}.btn{padding:16px 18px}#aud input{width:70px}.mg{gap:8px}.qc{font-size:1.3rem}.sp{width:40px;height:40px;font-size:1.15rem}body{user-select:none;-webkit-user-select:none}
+</style></head><body>
+<div class="bg" id="bg"></div>
+<div id="aud"><button id="mb" title="Som">🔊</button><input type="range" id="vol" min="0" max="100" value="50" aria-label="Volume"></div>
+
+<section class="scr on" id="home">
+ <div class="logo"><div class="big">My Neighborhood</div><p>🏙️ Chapter 9 · 6º ano · English Quest</p></div>
+ <div class="menu">
+  <button class="btn v" onclick="sp=0;sv();show('study')">📖 Study<small>Material de estudo</small></button>
+  <button class="btn c" onclick="fcStart()">🃏 Flashcards<small>Vire e aprenda</small></button>
+  <button class="btn p" onclick="mem()">🧩 Memory<small>Jogo da memória</small></button>
+  <button class="btn y" onclick="show('levels')">🎮 Quiz<small>Escolha o nível</small></button>
+ </div>
+</section>
+
+<section class="scr" id="study"><button class="btn v back" onclick="show('home')">🏠 Início</button>
+ <div id="sb"></div><div class="nav"><button class="btn c" id="pv" onclick="sp--;sv()">◀ Voltar</button><div class="dots" id="dt"></div><button class="btn g" id="nx2" onclick="sn()">Próxima ▶</button></div>
+</section>
+
+<section class="scr" id="cards"><button class="btn v back" onclick="show('home')">🏠 Início</button>
+ <h2>🃏 Flashcards</h2><p id="fcn" style="margin-bottom:10px"></p><div class="fc" id="fc" onclick="fcFlip()"></div>
+ <div class="nav"><button class="btn c" onclick="fcGo(-1)">◀</button><button class="btn y" onclick="fcFlip()">Virar 🔄</button><button class="btn c" onclick="fcGo(1)">▶</button></div>
+</section>
+
+<section class="scr" id="memory"><button class="btn v back" onclick="show('home')">🏠 Início</button>
+ <h2>🧩 Memory</h2><p id="mi" style="margin-bottom:12px">Encontre o par: inglês + português</p><div class="mg" id="mg"></div>
+ <div class="nav"><button class="btn p" onclick="mem()">🔀 Novo jogo</button></div>
+</section>
+
+<section class="scr" id="levels"><button class="btn v back" onclick="show('home')">🏠 Início</button>
+ <h2>🎮 Escolha o nível</h2><p style="margin-bottom:16px">Tempo para cada pergunta. Todas as perguntas entram, em ordem aleatória!</p>
+ <div class="lv">
+  <button class="btn g" onclick="play('easy')"><span>🐢</span>Fácil · Easy<br>1:30</button>
+  <button class="btn y" onclick="play('normal')"><span>🚀</span>Normal<br>1:00</button>
+  <button class="btn r" onclick="play('hard')"><span>🔥</span>Difícil · Hard<br>0:30</button>
+ </div>
+</section>
+
+<section class="scr" id="game">
+ <div class="hud"><span class="pill" id="qn"></span><span class="pill" id="sc">⭐ 0</span><span class="pill" id="tx">1:30</span></div>
+ <div class="tb"><div id="tf"></div></div>
+ <div class="qc" id="qt"></div><div class="opts" id="op"></div>
+ <div class="act"><button class="btn v" onclick="goHome()">🏠 Início</button><button class="btn y" id="skp" onclick="skip()">⏭️ Pular</button></div>
+</section>
+
+<section class="scr end" id="end"><h2>🏁 Fim de jogo!</h2><div class="stars" id="st"></div><div class="score" id="fs"></div><p id="fm" style="margin:10px 0 22px;font-size:1.2rem"></p>
+ <div class="menu"><button class="btn g" onclick="play(lv)">🔁 Jogar de novo</button><button class="btn v" onclick="show('levels')">🎚️ Mudar nível</button><button class="btn p" onclick="sp=0;sv();show('study')">📖 Estudar</button><button class="btn y" onclick="show('home')">🏠 Início</button></div>
+</section>
+
+<script>
+const $=s=>document.querySelector(s),shuf=a=>{a=[...a];for(let i=a.length;i>1;){const j=Math.random()*i--|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function show(id){document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('on',e.id==id));scrollTo(0,0);if(id!='game')stopM()}
+for(let i=0;i<16;i++){const e=document.createElement('i');e.textContent=['🏫','🌳','🚌','🏦','🥖','📚','🚦','🏥'][i%8];e.style.cssText=`left:${Math.random()*100}%;font-size:${28+Math.random()*34}px;animation-duration:${18+Math.random()*20}s;animation-delay:${-Math.random()*30}s`;$('#bg').appendChild(e)}
+const P=[["🥖","bakery","padaria"],["🏦","bank","banco"],["📚","bookstore","livraria"],["🚌","bus stop","ponto de ônibus"],["⛪","church","igreja"],["🎬","movie theater","cinema"],["💊","pharmacy","farmácia"],["⛽","gas station","posto de gasolina"],["🏥","hospital","hospital"],["📖","library","biblioteca"],["🏛️","museum","museu"],["🌳","park","parque"],["🚓","police station","delegacia"],["📮","post office","correios"],["🍽️","restaurant","restaurante"],["🏫","school","escola"],["🛍️","shopping mall","shopping"],["⛲","square","praça"],["🛒","supermarket","supermercado"],["🧸","toy store","loja de brinquedos"],["🏋️","gym","academia"],["🏖️","beach","praia"],["🚦","traffic light","semáforo"]];
+const PR=[["in","em / dentro de","The book is in the bag.","O livro está na mochila."],["on","sobre / em cima de","The phone is on the table.","O celular está sobre a mesa."],["under","embaixo de","The cat is under the chair.","O gato está embaixo da cadeira."],["next to","ao lado de","The bank is next to the bakery.","O banco fica ao lado da padaria."],["between","entre (A e B)","The school is between the park and the library.","A escola fica entre o parque e a biblioteca."],["in front of","em frente a","The bus stop is in front of the church.","O ponto de ônibus fica em frente à igreja."],["behind","atrás de","The garden is behind the house.","O jardim fica atrás da casa."],["near","perto de","The mall is near my house.","O shopping fica perto da minha casa."],["across from","do outro lado da rua","The cinema is across from the museum.","O cinema fica do outro lado da rua."],["on the corner of","na esquina de","The bank is on the corner of Main Street.","O banco fica na esquina da Main Street."]];
+const D=[["⬆️","Go straight","Siga em frente"],["⬅️","Turn left","Vire à esquerda"],["➡️","Turn right","Vire à direita"],["🚶","Go past the bank","Passe pelo banco"],["↔️","Cross the street","Atravesse a rua"],["🛑","Stop at the traffic light","Pare no semáforo"],["📍","It's on the left / right","Fica à esquerda / à direita"],["🔚","at the end of the street","no final da rua"],["📐","at the corner","na esquina"],["🧱","one block / two blocks","um / dois quarteirões"]];
+function say(x){if(window.AndroidTTS){AndroidTTS.speak(x);return}if(!window.speechSynthesis)return alert('Seu navegador não tem voz. Tente o Chrome.');speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(x);u.lang='en-US';u.rate=.85;const v=speechSynthesis.getVoices().filter(v=>v.lang.replace('_','-').startsWith('en'));u.voice=v.find(x=>x.lang.replace('_','-')=='en-US')||v[0]||null;speechSynthesis.speak(u)}
+if(window.speechSynthesis)speechSynthesis.getVoices();
+const sb=x=>`<button class="sp" aria-label="Ouvir em inglês" title="Ouvir" onclick="event.stopPropagation();say(this.dataset.t)" data-t="${x}">🔊</button>`;
+const pages=[
+()=>`<h2>📍 Places · Lugares</h2><div class="g2">${P.map(p=>`<div class="card it"><div class="em">${p[0]}</div><b>${p[1]} ${sb(p[1])}</b><small>${p[2]}</small></div>`).join('')}</div><div class="note">💡 Confira o vocabulário do seu caderno: se faltar alguma palavra aqui, escreva ao lado!</div>`,
+()=>`<h2>📌 Prepositions of Place</h2><div class="stack">${PR.map(p=>`<div class="card"><span class="k">${p[0]}</span> ${sb(p[0])} = ${p[1]}<br>🇺🇸 <i>${p[2]}</i> ${sb(p[2])}<br>🇧🇷 <small>${p[3]}</small></div>`).join('')}</div><div class="note">⚠️ <b>between</b> só com <b>duas</b> coisas: between A <b>and</b> B.</div>`,
+()=>`<h2>🧭 Giving Directions</h2><div class="g2">${D.map(p=>`<div class="card it"><div class="em">${p[0]}</div><b>${p[1]} ${sb(p[1])}</b><small>${p[2]}</small></div>`).join('')}</div>
+<div class="card" style="margin-top:14px"><span class="k">Dialogue · Diálogo</span><p><b>A:</b> Excuse me, how do I get to the library? ${sb("Excuse me, how do I get to the library?")}<br><small>Com licença, como chego à biblioteca?</small></p><p><b>B:</b> Go straight for two blocks. Then turn left. ${sb("Go straight for two blocks. Then turn left.")}<br><small>Siga em frente por dois quarteirões. Depois vire à esquerda.</small></p><p><b>A:</b> Is it far? <small>É longe?</small></p><p><b>B:</b> No, it isn't. It's next to the bakery. ${sb("No, it isn't. It's next to the bakery.")}<br><small>Não. Fica ao lado da padaria.</small></p><p><b>A:</b> Thank you! ${sb("Thank you!")} · <b>B:</b> You're welcome! ${sb("You're welcome!")}</p></div>`,
+()=>`<h2>✅ There is / There are</h2><div class="stack"><div class="card"><span class="k">There is</span> + singular<br><i>There is a park in my neighborhood.</i> ${sb("There is a park in my neighborhood.")}<br><small>Há um parque no meu bairro.</small></div><div class="card"><span class="k">There are</span> + plural<br><i>There are two schools near my house.</i> ${sb("There are two schools near my house.")}<br><small>Há duas escolas perto da minha casa.</small></div><div class="card"><span class="k">Negative / Question</span><br><i>There isn't a hospital here.</i> · <small>Não há hospital aqui.</small><br><i>Is there a bank near here?</i> ${sb("Is there a bank near here?")} → <i>Yes, there is. / No, there isn't.</i></div><div class="card"><span class="k">Asking</span><br><i>Where is the library?</i> ${sb("Where is the library?")} → <i>It's next to the post office.</i><br><i>How do I get to the museum?</i> ${sb("How do I get to the museum?")} <small>Como chego ao museu?</small></div></div>
+<div class="note"><b>Dicas de prova</b><br>1. Treine a escrita dos lugares.<br>2. is = singular · are = plural.<br>3. left = esquerda · right = direita.<br>4. Em mapas, leia com calma: turn, go straight, next to.</div>`];
+let sp=0;
+function sv(){$('#sb').innerHTML=pages[sp]();$('#dt').innerHTML=pages.map((_,i)=>`<i class="${i==sp?'on':''}"></i>`).join('');$('#pv').disabled=sp==0;$('#nx2').textContent=sp==pages.length-1?'Ir ao Quiz 🎮':'Próxima ▶';scrollTo(0,0)}
+function sn(){if(sp==pages.length-1)show('levels');else{sp++;sv()}}
+/* ---------- áudio ---------- */
+let AC,M,vol=.5,muted=false,mi=null,lastT=-1;
+function ac(){if(!AC){AC=new(window.AudioContext||window.webkitAudioContext)();M=AC.createGain();M.connect(AC.destination)}M.gain.value=muted?0:vol;AC.resume&&AC.resume()}
+function tn(f,d,w='sine',g=.2,t=0,f2){if(!AC)return;const o=AC.createOscillator(),e=AC.createGain(),s=AC.currentTime+t;o.type=w;o.frequency.setValueAtTime(f,s);if(f2)o.frequency.exponentialRampToValueAtTime(f2,s+d);e.gain.setValueAtTime(g,s);e.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(e);e.connect(M);o.start(s);o.stop(s+d)}
+const TR=[{n:[262,330,392,330,294,349,440,349],b:150,w:'triangle'},{n:[330,392,494,392,349,440,523,440],b:130,w:'square'},{n:[220,262,330,262,247,294,370,294],b:170,w:'sine'},{n:[392,523,659,523,440,587,698,587],b:120,w:'triangle'}];
+function stopM(){clearInterval(mi)}
+function music(){stopM();if(!AC)return;let k;do{k=Math.random()*TR.length|0}while(k==lastT);lastT=k;const t=TR[k];let i=0;mi=setInterval(()=>{const f=t.n[i%8];tn(f,.28,t.w,t.w=='square'?.04:.09);if(i%2==0)tn(f/2,.4,'sine',.1);if(i%8==7)tn(f*2,.2,'triangle',.05);i++},30000/t.b)}
+const good=()=>[523,659,784,1047].forEach((f,i)=>tn(f,.18,'triangle',.25,i*.08)),bad=()=>tn(220,.45,'sawtooth',.18,0,80),fan=()=>[523,523,523,784,659,784,1047].forEach((f,i)=>tn(f,.22,'square',.1,i*.14));
+$('#vol').oninput=e=>{vol=e.target.value/100;ac()};
+$('#mb').onclick=()=>{muted=!muted;ac();$('#mb').textContent=muted?'🔇':'🔊'};
+/* ---------- flashcards ---------- */
+let fd,fi,ff;
+function fcStart(){fd=shuf(P);fi=0;ff=false;show('cards');fcR()}
+function fcR(){const p=fd[fi];$('#fc').innerHTML=ff?`${p[2]}`:`<div><div style="font-size:3.4rem">${p[0]}</div>${p[1]} ${sb(p[1])}</div>`;$('#fcn').textContent=`Card ${fi+1} / ${fd.length} · toque para virar`}
+function fcFlip(){ff=!ff;fcR()}function fcGo(d){fi=(fi+d+fd.length)%fd.length;ff=false;fcR()}
+/* ---------- memory ---------- */
+let m1,mv,mf,ml;
+function mem(){const s=shuf(P).slice(0,8);const cs=shuf(s.flatMap((p,i)=>[{i,t:p[0]+' '+p[1]},{i,t:p[2]}]));mv=mf=0;m1=null;ml=false;$('#mi').textContent='Encontre o par: inglês + português';$('#mg').innerHTML='';cs.forEach(c=>{const b=document.createElement('button');b.className='mc';b.textContent='❓';b.onclick=()=>{if(ml||b.classList.contains('up')||b.classList.contains('done'))return;ac();b.classList.add('up');b.textContent=c.t;tn(660,.1,'triangle',.15);if(!m1){m1={b,c};return}mv++;const a=m1;m1=null;if(a.c.i==c.i){a.b.className=b.className='mc done';good();if(++mf==8){$('#mi').textContent=`🎉 Parabéns! ${mv} jogadas.`;fan()}}else{ml=true;bad();setTimeout(()=>{[a,{b,c}].forEach(x=>{x.b.classList.remove('up');x.b.textContent='❓'});ml=false},900)}};$('#mg').appendChild(b)});show('memory')}
+/* ---------- quiz ---------- */
+const oth=(p,k)=>shuf(P.filter(x=>x!==p)).slice(0,3).map(x=>x[k]);
+const Q=P.map((p,i)=>i%2?{q:`${p[0]} Como se diz “${p[2]}” em inglês?`,a:p[1],o:oth(p,1)}:{q:`${p[0]} What is “${p[1]}” in Portuguese?`,a:p[2],o:oth(p,2)});
+[["“Turn left” significa…","Vire à esquerda","Vire à direita","Siga em frente","Pare"],["“Turn right” significa…","Vire à direita","Vire à esquerda","Atravesse a rua","Passe pelo banco"],["“Go straight” significa…","Siga em frente","Vire à esquerda","Pare no semáforo","Atravesse a rua"],["“Cross the street” significa…","Atravesse a rua","Siga em frente","Vire à direita","Fica na esquina"],["Left = ?","esquerda","direita","em frente","atrás"],["Right (direção) = ?","direita","esquerda","embaixo","entre"],["“Block” significa…","quarteirão","esquina","semáforo","praça"],["“Corner” significa…","esquina","quarteirão","avenida","parque"],["“Next to” significa…","ao lado de","em frente a","atrás de","embaixo de"],["“In front of” significa…","em frente a","atrás de","entre","dentro de"],["The cat is ___ the box. (dentro)","in","on","under","behind"],["The book is ___ the table. (sobre)","on","in","under","between"],["The dog is ___ the chair. (embaixo)","under","on","in front of","next to"],["The bank is ___ the bakery and the school.","between","behind","on","under"],["The bus stop is ___ the church. (em frente)","in front of","behind","under","in"],["The garden is ___ the house. (atrás)","behind","in front of","between","on"],["The gym is ___ the supermarket. (ao lado)","next to","under","in","on"],["There ___ a park in my neighborhood.","is","are","am","be"],["There ___ two banks on this street.","are","is","am","isn't"],["There ___ a hospital near here.","is","are","were","do"],["Is there a bank near here?","Yes, there is.","Yes, it is.","No, there are.","Yes, I am."],["Where is the library?","It's next to the post office.","Yes, there is.","I'm fine.","Thank you!"],["Excuse me, how do I get to the museum?","Go straight and turn left.","I like museums.","Yes, there is.","You're welcome!"],["Thank you very much!","You're welcome!","Excuse me.","Turn left.","There is."],["Traduza: O museu fica atrás do cinema.","The museum is behind the cinema.","The museum is in front of the cinema.","The cinema is behind the museum.","The museum is between the cinema."],["Traduza: A padaria fica perto da minha casa.","The bakery is near my house.","The bakery is behind my house.","My house is a bakery.","The bakery is on my house."],["Traduza: Há um parque no meu bairro.","There is a park in my neighborhood.","There are a park in my neighborhood.","It is park my neighborhood.","I have a neighborhood."],["Mapa: bakery – bank – school – park. The school is between…","the bank and the park","the bakery and the bank","the park and the bakery","the bank only"],["Use “between” com…","duas coisas (A and B)","uma coisa só","apenas pessoas","qualquer número sem and"]].forEach(r=>Q.push({q:r[0],a:r[1],o:r.slice(2)}));
+const LV={easy:90,normal:60,hard:30};
+let q,cur,dl,tm,sc,ok,ko,tot,lv,lock,os,left;
+function play(l){ac();lv=l;q=shuf(Q.map((_,i)=>i));tot=q.length;sc=ok=ko=0;music();show('game');nx()}
+function nx(){clearInterval(tm);if(!q.length)return fin();cur=Q[q[0]];lock=false;os=shuf([cur.a,...cur.o]);$('#qt').textContent=cur.q;$('#op').innerHTML=os.map((o,i)=>`<button class="opt" onclick="ans(${i})"><b>${'ABCD'[i]}</b><span>${o}</span></button>`).join('');$('#qn').textContent=`📋 ${tot-q.length+1}/${tot}`;$('#sc').textContent=`⭐ ${sc}`;$('#skp').disabled=q.length<2;dl=Date.now()+LV[lv]*1000;tick();tm=setInterval(tick,100)}
+function tick(){left=Math.max(0,(dl-Date.now())/1000);const t=Math.ceil(left);$('#tx').textContent=`⏱️ ${Math.floor(t/60)}:${String(t%60).padStart(2,'0')}`;$('#tf').style.width=left/LV[lv]*100+'%';$('#tf').className=left/LV[lv]<.25?'low':'';if(left<=0)ans(-1)}
+function ans(i){if(lock)return;lock=true;clearInterval(tm);const r=i>=0&&os[i]==cur.a;document.querySelectorAll('.opt').forEach((b,j)=>{if(os[j]==cur.a)b.classList.add('ok');else if(j==i)b.classList.add('no');b.disabled=true});if(r){sc+=100+Math.round(left);ok++;good()}else{ko++;bad()}$('#sc').textContent=`⭐ ${sc}`;q.shift();setTimeout(nx,1300)}
+function skip(){if(lock||q.length<2)return;q.push(q.shift());nx()}
+function goHome(){clearInterval(tm);lock=true;show('home')}
+function fin(){stopM();fan();const p=ok/tot;$('#st').textContent=p>.85?'⭐⭐⭐':p>.6?'⭐⭐☆':p>.3?'⭐☆☆':'☆☆☆';$('#fs').textContent=`${sc} pts`;$('#fm').textContent=`Acertos: ${ok} ✅ · Erros: ${ko} ❌ · ${p>.85?'Você é craque no bairro! 🏆':p>.6?'Muito bem! Falta pouco. 💪':'Estude as páginas e tente de novo! 📖'}`;show('end')}
+document.addEventListener('keydown',e=>{if(!$('#game').classList.contains('on'))return;const k=+e.key;if(k>=1&&k<=4)ans(k-1);if(e.key=='s'||e.key=='S')skip()});
+sv();
+</script></body></html>
